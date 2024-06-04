@@ -8,7 +8,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Intro = ({onFinish}) => {
   const [User,setUser]=useState('')
-
   const [notfound,setnotfound]=useState(false);
 
 

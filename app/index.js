@@ -7,7 +7,12 @@ import Search from "./Screen/Search";
 import Playlist from "./Screen/Playlist";
 import Settings from "./Screen/Settings";
 import { Colors } from "../constants/Colors";
+import Homeicon from 'react-native-vector-icons/AntDesign';
+import Searchicon from 'react-native-vector-icons/Octicons';
 //import { Colors } from "react-native/Libraries/NewAppScreen";
+import Playlisticon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Settingicon from 'react-native-vector-icons/AntDesign'
+import ListProvider from "../hooks/ListProvider";
 
 const Tabs=createBottomTabNavigator()
 
@@ -17,7 +22,7 @@ export default function Index() {
       style={{
         flex: 1,
       }}
-    >
+    ><ListProvider>
          <Tabs.Navigator screenOptions={{
           headerShown:false,
           tabBarStyle:{
@@ -27,12 +32,34 @@ export default function Index() {
           },
           tabBarShowLabel:false,
           tabBarActiveTintColor:Colors.PRIMARY,
+          tabBarInactiveTintColor:Colors.LIGHT
          }}>
-          <Tabs.Screen name="Home" component={Home} />
-          <Tabs.Screen name="Search" component={Search}/>
-          <Tabs.Screen name="Playlist" component={Playlist}/>
-          <Tabs.Screen name="Settings" component={Settings}/>
+          <Tabs.Screen name="Home" component={Home} options={{
+            tabBarIcon:({color})=>(
+              <Homeicon name="home" color={color} size={30}/>
+            )
+          }} />
+          <Tabs.Screen name="Search" component={Search}
+          options={{
+            tabBarIcon:({color})=>(
+               <Searchicon name="search" size={30} color={color}/>
+            )
+          }}/>
+          <Tabs.Screen name="Playlist" component={Playlist} 
+          options={{
+            tabBarIcon:({color})=>(
+              <Playlisticon name="playlist-music-outline" color={color} size={34}/>
+            )
+          }}/>
+          <Tabs.Screen name="Settings" component={Settings} 
+          
+          options={{
+            tabBarIcon:({color})=>(
+              <Settingicon name="setting" size={30} color={color}/>
+            )
+          }}/>
          </Tabs.Navigator>
+        </ListProvider>
     </View>
   );
 }
