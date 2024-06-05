@@ -4,7 +4,7 @@ import { useList } from '../../hooks/ListProvider'
 import { Colors } from '../../constants/Colors';
 import { Entypo } from '@expo/vector-icons';
 
-export default function PlayerBar() {
+export default function PlayerBar({onAudioPlayer}) {
 
   const {Currentaudio}=useList()
   const {isPlaying}=useList()
@@ -15,7 +15,7 @@ export default function PlayerBar() {
     return null
   }
   return(
-     <View style={styles.box}>
+    < Pressable style={styles.box} onPress={onAudioPlayer}>
           <View>
              <Image src={Currentaudio.image} style={styles.image}/>
           </View>
@@ -26,7 +26,7 @@ export default function PlayerBar() {
           <Pressable style={styles.press} onPress={()=>handlePlayAudio(Currentaudio)}>
           {isPlaying ?<Entypo name="controller-paus" size={30} color={Colors.LIGHT}/>:<Entypo name="controller-play" size={30} color={Colors.LIGHT} />}
           </Pressable>
-       </View>
+       </Pressable>
   )
 }
 
@@ -65,6 +65,11 @@ const styles = StyleSheet.create({
      },
      press:{
         position:'absolute',
-        right:30
+        right:30,
+        height:50,
+        width:50,
+        //backgroundColor:'red',
+        justifyContent:'center',
+        alignItems:'center'
      }
 })

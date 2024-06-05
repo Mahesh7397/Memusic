@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import { StatusBar, View ,Image, StyleSheet, Modal, Dimensions} from "react-native";
+import { StatusBar, View ,Text,Image, StyleSheet, Modal, Dimensions, SafeAreaView} from "react-native";
 import Intro from "./Intro";
 import { useEffect, useState } from "react";
 import {Colors} from '../constants/Colors';
@@ -7,9 +7,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFonts } from 'expo-font';
 import ListProvider from "../hooks/ListProvider";
 import PlayerBar from "../components/Frame layout/PlayerBar";
+import Audioplayer from "../components/Frame layout/Audioplayer";
 
 export default function RootLayout() {
   const [user,setuser]=useState('')
+  const [opened,setopened]=useState(false)
   const [firsttimeopen,setfirsttimeopen]=useState(false)
   
   const Fonts=useFonts({
@@ -51,7 +53,8 @@ export default function RootLayout() {
         headerLeft:()=><Image source={require('../assets/images/adaptive-icon.png')} style={styles.image}/>,
       }}/>
      </Stack>}
-     <PlayerBar/>
+     <PlayerBar onAudioPlayer={()=>setopened(true)}/>
+     <Audioplayer opened={opened} onClose={()=>setopened(false)}/>
     </View>
     </ListProvider>
   );
@@ -64,5 +67,5 @@ const styles=StyleSheet.create({
      height:50,
      paddingRight:5,
      marginRight:5,
-  }
+  },
 })
