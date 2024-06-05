@@ -10,27 +10,16 @@ import { Pause , Play,Resume,Playnext } from '../../components/AudioControler'
 
 
 export default function Home() {
-  const [recentview,setrecentview]=useState(false)
   const [randomlist,setrandomlist]=useState([])
-  const [recentlist,setrecentlist]=useState([])
   const { list } = useList()
   const { reload }= useList()
   const { setreload }= useList()
   //console.log(list)
-  const { playbackobj }=useList()
-  const  {setplaybackobj }=useList()
-  const {soundobj}  = useList()
-  const  {currentaudioid} = useList()
-  const  {Currentaudio} = useList()
-  const  {isPlaying} = useList()
-  const  {setCurrentaudio} = useList()
-  const  {setcurrentaudioid} = useList()
-  const  {setisPlaying} = useList()
-  const {setsoundobj}  = useList()
-  const { setLoader }=useList()
-  const {handlePlayAudio}=useList()
-
-
+  const { HandleSet }=useList()
+  const {recentlist }=useList()
+  const {recentview}=useList()
+  const {setrecentview}=useList()
+  const {setrecentlist}=useList()
   const findrecent=async()=>{
     const result=await AsyncStorage.getItem('Recentlist');
     if(result===null) return setrecentview(false);
@@ -41,16 +30,6 @@ export default function Home() {
   if(reload){
     findrecent()
     setreload(false)
-  }
-  const HandleSet=async(item)=>{
-    //console.log(item)
-
-    const newlist=recentlist.filter(n=>n.id!==item.id)
-     const data=[item,...newlist]
-     //console.log(data)
-     await AsyncStorage.setItem('Recentlist',JSON.stringify(data))
-     setrecentlist(data)
-     setrecentview(true)
   }
 
 
@@ -66,7 +45,6 @@ export default function Home() {
 const onsubmit=(items)=>{
   //console.log(items)
   HandleSet(items)
-  handlePlayAudio(items)
 }  
 
   useEffect(()=>{
@@ -84,8 +62,8 @@ const onsubmit=(items)=>{
          <Text style={styles.text}>Quick Pick :</Text>
          <Pressable style={styles.refresh} onPress={()=>random()}><Text style={[styles.text,{paddingRight:5}]}>Refresh</Text></Pressable>
         {randomlist.map((items)=>(
-          <Pressable onPress={()=>onsubmit(items)}>
-         <Quickpick item={items}/></Pressable>
+          <Pressable>
+         <Quickpick item={items} handleaudio={()=>onsubmit(items)}/></Pressable>
          ))}
       </View>
     </ScrollView>

@@ -3,39 +3,17 @@ import React, { useState } from 'react'
 import { Colors } from '../../constants/Colors'
 import { useList } from '../../hooks/ListProvider'
 import Quickpick from '../../components/Frame layout/Quickpick'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+
 
 export default function Search() {
   const { list }=useList()
-  const { setreload }= useList()
   const [text,settext]=useState('')
   const [result,setresult]=useState([])
   const [Resultnotfound,setResultnotfound]=useState(false)
   const [notfound,setnotfound]=useState(false);
-  const [addrecent,setaddrecent]=useState([])
   //console.log(text)
-  const {handlePlayAudio}=useList()
-
-  const findrerecent=async()=>{
-    const result=await AsyncStorage.getItem('Recentlist');
-    setaddrecent(JSON.parse(result))
-  }
-
-  const HandleSet=async(item)=>{
-    //console.log(item)
-    findrerecent()
-    handlePlayAudio(item)
-    //console.log(addrecent)
-    const newlist=addrecent.filter(n=>n.id!==item.id)
-    //console.log(newlist)
-     const data=[item,...newlist]
-     //console.log(data)
-
-     await AsyncStorage.setItem('Recentlist',JSON.stringify(data))
-     //console.log('saved')
-     setreload(true)
-     
-  }
+  const { HandleSet }=useList()
+ 
 
   const handleonsearch=(texts)=>{
    // console.log(texts)
