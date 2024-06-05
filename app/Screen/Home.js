@@ -66,6 +66,7 @@ const onsubmit=(items)=>{
          <Quickpick item={items} handleaudio={()=>onsubmit(items)}/></Pressable>
          ))}
       </View>
+      <View style={{height:80}}/>
     </ScrollView>
   )
 }

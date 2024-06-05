@@ -22,7 +22,7 @@ export default function Index() {
       style={{
         flex: 1,
       }}
-    ><ListProvider>
+    >
          <Tabs.Navigator screenOptions={{
           headerShown:false,
           tabBarStyle:{
@@ -51,15 +51,14 @@ export default function Index() {
               <Playlisticon name="playlist-music-outline" color={color} size={34}/>
             )
           }}/>
-          <Tabs.Screen name="Settings" component={Settings} 
+          {/*<Tabs.Screen name="Settings" component={Settings} 
           
           options={{
             tabBarIcon:({color})=>(
               <Settingicon name="setting" size={30} color={color}/>
             )
-          }}/>
+          }}/>*/}
          </Tabs.Navigator>
-        </ListProvider>
     </View>
   );
 }

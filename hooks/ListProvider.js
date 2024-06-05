@@ -20,6 +20,7 @@ export default function ListProvider({children}){
     const [currentaudioid,setcurrentaudioid]=useState(null)
     const [Loader,setLoader]=useState(false)
     const [list,setlist]=useState([])
+    const [seaudio,setseaudio]=useState(false)
     const [recentlist,setrecentlist]=useState([])
     const [recentview,setrecentview]=useState(false)
     if(!list.length){setlist(datacontroler)} 
@@ -38,12 +39,13 @@ export default function ListProvider({children}){
      // console.log(audio)
       if(soundobj===null){
        setisPlaying(true)
+       setseaudio(true)
+       setCurrentaudio(audio)
        const Playback=new Audio.Sound()
        const result=await Play(Playback,audio.url)
       // console.log(result)
        const id=audio.id
        setplaybackobj(Playback)
-       setCurrentaudio(audio)
        setcurrentaudioid(id),
        setsoundobj(result)
        
@@ -63,12 +65,13 @@ export default function ListProvider({children}){
      }
    
      if(soundobj.isLoaded && currentaudioid !== audio.id){
+      setCurrentaudio(audio)
        const result=await Playnext(playbackobj,audio.url)
        setisPlaying(true)
        const id=audio.id
        setsoundobj(result)
        setcurrentaudioid(id)
-       setCurrentaudio(audio)
+       
        
      }
      }
@@ -88,10 +91,11 @@ export default function ListProvider({children}){
      },[])
 
   return (
-    <ListContext.Provider value={{ Loader,list ,setLoader, reload , setreload ,playbackobj,soundobj,currentaudioid,Currentaudio,isPlaying,recentview,recentlist,HandleSet,setCurrentaudio,setcurrentaudioid,setisPlaying,setsoundobj,setplaybackobj,handlePlayAudio,setrecentview,setrecentlist}}>
+    <ListContext.Provider value={{ Loader,list ,setLoader, reload , setreload ,playbackobj,soundobj,currentaudioid,Currentaudio,isPlaying,recentview,recentlist,seaudio,HandleSet,setCurrentaudio,setcurrentaudioid,setisPlaying,setsoundobj,setplaybackobj,handlePlayAudio,setrecentview,setrecentlist}}>
         {children}
     </ListContext.Provider>
   )
 }
 
 export const useList=()=>useContext(ListContext)
+

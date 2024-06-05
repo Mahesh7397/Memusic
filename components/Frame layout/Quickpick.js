@@ -7,6 +7,7 @@ import {Entypo} from 'react-native-vector-icons'
 export default function Quickpick({item,handleaudio}) {
   const { isPlaying }=useList()
   const {currentaudioid}=useList()
+  
   return ( 
       <View style={styles.Box}>
           <View>

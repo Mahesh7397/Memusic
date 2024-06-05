@@ -1,10 +1,12 @@
 import { Stack } from "expo-router";
-import { StatusBar, View ,Image, StyleSheet, Modal} from "react-native";
+import { StatusBar, View ,Image, StyleSheet, Modal, Dimensions} from "react-native";
 import Intro from "./Intro";
 import { useEffect, useState } from "react";
 import {Colors} from '../constants/Colors';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFonts } from 'expo-font';
+import ListProvider from "../hooks/ListProvider";
+import PlayerBar from "../components/Frame layout/PlayerBar";
 
 export default function RootLayout() {
   const [user,setuser]=useState('')
@@ -31,7 +33,8 @@ export default function RootLayout() {
   },[])
 
   return (
-    <View style={{flex:1,backgroundColor:Colors.DARK}}>
+    <ListProvider>
+    <View style={{flex:1,backgroundColor:Colors.DARK,position:'relative'}}>
       <StatusBar barStyle='light-content' backgroundColor={Colors.DARK}/>
       {firsttimeopen?<Intro onFinish={finduser}/>:
      <Stack >
@@ -48,14 +51,13 @@ export default function RootLayout() {
         headerLeft:()=><Image source={require('../assets/images/adaptive-icon.png')} style={styles.image}/>,
       }}/>
      </Stack>}
-     <Modal visible={false}>
-
-     </Modal>
+     <PlayerBar/>
     </View>
+    </ListProvider>
   );
 }
 
-
+const height=Dimensions.get('window').height - 90
 const styles=StyleSheet.create({
   image:{
      width:50,

@@ -15,7 +15,7 @@ export default function Recentlist({Recent,onSubmit}) {
         renderItem={({item})=>
             <Pressable style={styles.Box} onPress={()=>onSubmit(item)}>
                  <Image src={item.image} style={styles.image}/>
-                {isPlaying && currentaudioid===item.id ?<View style={[StyleSheet.absoluteFillObject,{height:90,width:90,alignSelf:'stretch',marginTop:8,marginLeft:4,justifyContent:'center'}]}><ActivityIndicator style={{alignItems:'center'}} size={40}/></View> :null} 
+                {isPlaying && currentaudioid===item.id ?<View style={[StyleSheet.absoluteFillObject,{height:90,width:90,alignSelf:'stretch',marginTop:8,marginLeft:4,justifyContent:'flex-end',alignItems:'center',backgroundColor:'rgba(0,0,0,0.2)'}]}><Image source={require('../../assets/images/MusicWavew.png')} style={{height:45,width:45,}}/></View> :null} 
                  <View style={styles.detailbox}>
                      <View><Text numberOfLines={2} style={[styles.text,{fontWeight:"600"}]}>{item.title}</Text></View>
                      <View><Text numberOfLines={2} style={[styles.text,]}><Movieicon name="movie-roll" color={'#ffff'} size={17}/>:{item.Movie}</Text></View>
