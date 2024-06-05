@@ -46,7 +46,7 @@ export default function Search() {
           />
       </View> 
       {Resultnotfound?<View style={{flex:1}}>
-        {notfound?<ScrollView style={{flex:1}}>{result.map((item)=><Pressable onPress={()=>HandleSet(item)}><Quickpick item={item}/></Pressable>)}</ScrollView>:<View style={{flex:1,justifyContent:'center',alignItems:'center'}}><Text style={styles.notfound}>Result Not Found</Text></View>
+        {notfound?<ScrollView style={{flex:1}}>{result.map((item)=><Pressable ><Quickpick item={item} handleaudio={()=>HandleSet(item)}/></Pressable>)}</ScrollView>:<View style={{flex:1,justifyContent:'center',alignItems:'center'}}><Text style={styles.notfound}>Result Not Found</Text></View>
         }
       </View>:<View style=
       {{flex:1,justifyContent:'center',alignItems:'center'}}><Text style={{color:Colors.BORDER,fontSize:30,opacity:0.7,zIndex:-1}}>Search...</Text></View>}

@@ -6,7 +6,7 @@ import { useList } from '../../hooks/ListProvider';
 
 export default function Recentlist({Recent,onSubmit}) {
     const  {currentaudioid} = useList()
-    const  {Loader} = useList()
+    const  {isPlaying} = useList()
   return (
     <View>
         <FlatList
@@ -15,7 +15,7 @@ export default function Recentlist({Recent,onSubmit}) {
         renderItem={({item})=>
             <Pressable style={styles.Box} onPress={()=>onSubmit(item)}>
                  <Image src={item.image} style={styles.image}/>
-                {Loader && currentaudioid===item.id ?<View style={[StyleSheet.absoluteFillObject,{height:90,width:90,alignSelf:'stretch',marginTop:8,marginLeft:4,justifyContent:'center'}]}><ActivityIndicator style={{alignItems:'center'}} size={40}/></View> :null} 
+                {isPlaying && currentaudioid===item.id ?<View style={[StyleSheet.absoluteFillObject,{height:90,width:90,alignSelf:'stretch',marginTop:8,marginLeft:4,justifyContent:'center'}]}><ActivityIndicator style={{alignItems:'center'}} size={40}/></View> :null} 
                  <View style={styles.detailbox}>
                      <View><Text numberOfLines={2} style={[styles.text,{fontWeight:"600"}]}>{item.title}</Text></View>
                      <View><Text numberOfLines={2} style={[styles.text,]}><Movieicon name="movie-roll" color={'#ffff'} size={17}/>:{item.Movie}</Text></View>
