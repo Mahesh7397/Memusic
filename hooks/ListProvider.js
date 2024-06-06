@@ -23,6 +23,8 @@ export default function ListProvider({ children }) {
   const [seaudio, setseaudio] = useState(false)
   const [recentlist, setrecentlist] = useState([])
   const [recentview, setrecentview] = useState(false)
+  const [PlaybackPosition,setPlaybackPosition]=useState(null)
+  const [PlaybackDuration,setPlaybackDuration]=useState(null)
   if (!list.length) { setlist(datacontroler) }
   //console.log(list)
   const [reload, setreload] = useState(false)
