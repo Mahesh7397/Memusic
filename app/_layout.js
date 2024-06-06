@@ -11,7 +11,7 @@ import Audioplayer from "../components/Frame layout/Audioplayer";
 
 export default function RootLayout() {
   const [user,setuser]=useState('')
-  const [opened,setopened]=useState(true)
+  const [opened,setopened]=useState(false)
   const [firsttimeopen,setfirsttimeopen]=useState(false)
   
   const Fonts=useFonts({

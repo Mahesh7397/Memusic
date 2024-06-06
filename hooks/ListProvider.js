@@ -46,6 +46,7 @@ export default function ListProvider({ children }) {
       const Playback = new Audio.Sound()
       const result = await Play(Playback, audio.url)
       // console.log(result)
+      Playback.setOnPlaybackStatusUpdate()
       const id = audio.id
       setplaybackobj(Playback)
       setcurrentaudioid(id),
