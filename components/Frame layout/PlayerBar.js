@@ -10,7 +10,6 @@ export default function PlayerBar({onAudioPlayer}) {
   const {isPlaying}=useList()
   const {seaudio}=useList()
   const {handlePlayAudio}=useList()
-  //console.log(Currentaudio.Actor)
   if(!seaudio){
     return null
   }

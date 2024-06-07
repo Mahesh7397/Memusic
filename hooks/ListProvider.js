@@ -29,6 +29,8 @@ export default function ListProvider({ children }) {
   //console.log(list)
   const [reload, setreload] = useState(false)
 
+
+  //console.log(playbackobj)
   const findrecent = async () => {
     const result = await AsyncStorage.getItem('Recentlist');
     if (result === null) return setrecentview(false);
@@ -36,6 +38,13 @@ export default function ListProvider({ children }) {
     setrecentview(true)
     setrecentlist(JSON.parse(result))
   }
+
+   const onPlaybackstatusupdate=(playbackstatus)=>{
+       if( playbackstatus.isPlaying){
+        setPlaybackPosition(playbackstatus.positionMillis)
+        setPlaybackDuration(playbackstatus.durationMillis)
+       }
+   }
 
   const handlePlayAudio = async (audio) => {
     // console.log(audio)
@@ -45,37 +54,37 @@ export default function ListProvider({ children }) {
       setCurrentaudio(audio)
       const Playback = new Audio.Sound()
       const result = await Play(Playback, audio.url)
-      // console.log(result)
-      Playback.setOnPlaybackStatusUpdate()
+      //console.log(result)
+      Playback.setOnPlaybackStatusUpdate(onPlaybackstatusupdate)
       const id = audio.id
       setplaybackobj(Playback)
       setcurrentaudioid(id),
-        setsoundobj(result)
+      setsoundobj(result)
 
       //console.log(soundobj)
     }
-    if (soundobj.isLoaded && soundobj.isPlaying && currentaudioid === audio.id) {
+    if (soundobj.isLoading &&  soundobj.isPlaying && currentaudioid === audio.id) {
       setisPlaying(false)
       const result = await Pause(playbackobj)
       setsoundobj(result)
     }
 
-    if (soundobj.isLoaded && !soundobj.isPlaying && currentaudioid === audio.id) {
+    if ( soundobj.isLoading && !soundobj.isPlaying && currentaudioid === audio.id) {
       setisPlaying(true)
       const result = await Resume(playbackobj)
+      //console.log(result)
       setsoundobj(result)
 
     }
 
-    if (soundobj.isLoaded && currentaudioid !== audio.id) {
+    if (currentaudioid !== audio.id) {
       setCurrentaudio(audio)
       const result = await Playnext(playbackobj, audio.url)
       setisPlaying(true)
+      //console.log(result)
       const id = audio.id
       setsoundobj(result)
       setcurrentaudioid(id)
-
-
     }
   }
   const HandleSet = async (item) => {
@@ -94,7 +103,7 @@ export default function ListProvider({ children }) {
   }, [])
 
   return (
-    <ListContext.Provider value={{ Loader, list, setLoader, reload, setreload, playbackobj, soundobj, currentaudioid, Currentaudio, isPlaying, recentview, recentlist, seaudio, HandleSet, setCurrentaudio, setcurrentaudioid, setisPlaying, setsoundobj, setplaybackobj, handlePlayAudio, setrecentview, setrecentlist }}>
+    <ListContext.Provider value={{ Loader, list, setLoader, reload, setreload, playbackobj, soundobj, currentaudioid, Currentaudio, isPlaying, recentview, recentlist, seaudio, HandleSet, setCurrentaudio, setcurrentaudioid, setisPlaying, setsoundobj, setplaybackobj, handlePlayAudio, setrecentview, setrecentlist , PlaybackPosition,PlaybackDuration}}>
       {children}
     </ListContext.Provider>
   )

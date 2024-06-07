@@ -12,7 +12,18 @@ export default function Audioplayer({opened,onClose}) {
   const {Currentaudio}=useList()
   const {isPlaying}=useList()
   const {handlePlayAudio}=useList()
-
+  //console.log(Currentaudio)
+  const {PlaybackPosition}=useList()
+  const {PlaybackDuration}=useList()
+  //console.log(Currentaudio.Actor)
+  const Calculateseekbar=()=>{
+    if(PlaybackPosition!==null && PlaybackDuration!==null){
+      return PlaybackPosition/PlaybackDuration
+    }
+    return 0
+  }
+  //console.log(Calculateseekbar())
+  //Calculateseekbar()
   return (
     <Modal visible={opened} onRequestClose={onClose}>
       <SafeAreaView style={styles.playbox}>
@@ -39,6 +50,7 @@ export default function Audioplayer({opened,onClose}) {
                   style={{width:Dimensions.get('window').width-60, height: 40,alignSelf:'center'}}
                   minimumValue={0}
                   maximumValue={1}
+                  value={Calculateseekbar()}
                   minimumTrackTintColor={Colors.PRIMARY}
                   maximumTrackTintColor={Colors.BORDER}
                 />
