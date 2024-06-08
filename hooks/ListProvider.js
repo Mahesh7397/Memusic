@@ -48,6 +48,7 @@ export default function ListProvider({ children }) {
 
   const handlePlayAudio = async (audio) => {
     // console.log(audio)
+    //console.log('passed')
     if (soundobj === null) {
       setisPlaying(true)
       setseaudio(true)
@@ -55,21 +56,20 @@ export default function ListProvider({ children }) {
       const Playback = new Audio.Sound()
       const result = await Play(Playback, audio.url)
       //console.log(result)
-      Playback.setOnPlaybackStatusUpdate(onPlaybackstatusupdate)
       const id = audio.id
       setplaybackobj(Playback)
-      setcurrentaudioid(id),
+      setcurrentaudioid(id)
       setsoundobj(result)
-
-      //console.log(soundobj)
+      return Playback.setOnPlaybackStatusUpdate(onPlaybackstatusupdate)
     }
-    if (soundobj.isLoading &&  soundobj.isPlaying && currentaudioid === audio.id) {
+    if (soundobj.isLoaded &&  soundobj.isPlaying && currentaudioid === audio.id) {
+      //console.log('passed')
       setisPlaying(false)
       const result = await Pause(playbackobj)
       setsoundobj(result)
     }
 
-    if ( soundobj.isLoading && !soundobj.isPlaying && currentaudioid === audio.id) {
+    if ( soundobj.isLoaded && !soundobj.isPlaying && currentaudioid === audio.id) {
       setisPlaying(true)
       const result = await Resume(playbackobj)
       //console.log(result)
@@ -78,6 +78,7 @@ export default function ListProvider({ children }) {
     }
 
     if (currentaudioid !== audio.id) {
+      setisPlaying(false)
       setCurrentaudio(audio)
       const result = await Playnext(playbackobj, audio.url)
       setisPlaying(true)
@@ -103,7 +104,7 @@ export default function ListProvider({ children }) {
   }, [])
 
   return (
-    <ListContext.Provider value={{ Loader, list, setLoader, reload, setreload, playbackobj, soundobj, currentaudioid, Currentaudio, isPlaying, recentview, recentlist, seaudio, HandleSet, setCurrentaudio, setcurrentaudioid, setisPlaying, setsoundobj, setplaybackobj, handlePlayAudio, setrecentview, setrecentlist , PlaybackPosition,PlaybackDuration}}>
+    <ListContext.Provider value={{ Loader, list, setLoader, reload, setreload, playbackobj, soundobj, currentaudioid, Currentaudio, isPlaying, recentview, recentlist, seaudio, HandleSet, setCurrentaudio, setcurrentaudioid, setisPlaying, setsoundobj, setplaybackobj, handlePlayAudio, setrecentview, setrecentlist, PlaybackPosition,PlaybackDuration}}>
       {children}
     </ListContext.Provider>
   )

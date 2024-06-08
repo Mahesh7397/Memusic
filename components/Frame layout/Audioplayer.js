@@ -3,7 +3,7 @@ import React from 'react'
 import { Colors } from '../../constants/Colors'
 import { Dimensions } from 'react-native'
 import { AntDesign } from 'react-native-vector-icons';
-import {Feather} from 'react-native-vector-icons'
+import { Feather } from 'react-native-vector-icons'
 import { useList } from '../../hooks/ListProvider';
 import Slider from '@react-native-community/slider';
 
@@ -12,20 +12,26 @@ export default function Audioplayer({opened,onClose}) {
   const {Currentaudio}=useList()
   const {isPlaying}=useList()
   const {handlePlayAudio}=useList()
-  //console.log(Currentaudio)
   const {PlaybackPosition}=useList()
   const {PlaybackDuration}=useList()
-  //console.log(Currentaudio.Actor)
   const Calculateseekbar=()=>{
     if(PlaybackPosition!==null && PlaybackDuration!==null){
       return PlaybackPosition/PlaybackDuration
     }
     return 0
   }
+  //console.log(Currentaudio)
+  //console.log(Currentaudio.Actor)
+  //const Calculateseekbar=()=>{
+  //  if(PlaybackPosition!==null && //PlaybackDuration!==null){
+  //    return PlaybackPosition/PlaybackDuration
+  //  }
+  //  return 0
+ // }
   //console.log(Calculateseekbar())
   //Calculateseekbar()
   return (
-    <Modal visible={opened} onRequestClose={onClose}>
+    <Modal visible={opened} onRequestClose={onClose} animationType='slide'>
       <SafeAreaView style={styles.playbox}>
          <View style={styles.header}>
               <View style={{width:60,
