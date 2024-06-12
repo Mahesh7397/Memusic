@@ -8,11 +8,13 @@ import { useFonts } from 'expo-font';
 import ListProvider from "../hooks/ListProvider";
 import PlayerBar from "../components/Frame layout/PlayerBar";
 import Audioplayer from "../components/Frame layout/Audioplayer";
+import Likedlist from "../components/Frame layout/Likedlist";
 
 export default function RootLayout() {
   const [user,setuser]=useState('')
   const [opened,setopened]=useState(false)
   const [firsttimeopen,setfirsttimeopen]=useState(false)
+ 
   
   const Fonts=useFonts({
     righteous:require('../assets/fonts/Righteous-Regular.ttf'),
@@ -53,8 +55,10 @@ export default function RootLayout() {
         headerLeft:()=><Image source={require('../assets/images/adaptive-icon.png')} style={styles.image}/>,
       }}/>
      </Stack>}
-     <PlayerBar onAudioPlayer={()=>setopened(true)}/>
+     
      <Audioplayer opened={opened} onClose={()=>setopened(false)}/>
+     <PlayerBar onAudioPlayer={()=>setopened(true)}/>
+     <Likedlist/>
     </View>
     </ListProvider>
   );

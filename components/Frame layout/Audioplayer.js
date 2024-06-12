@@ -6,6 +6,7 @@ import { AntDesign } from 'react-native-vector-icons';
 import { Feather } from 'react-native-vector-icons'
 import { useList } from '../../hooks/ListProvider';
 import Slider from '@react-native-community/slider';
+import { Entypo } from '@expo/vector-icons';
 
 export default function Audioplayer({opened,onClose}) {
 
@@ -14,6 +15,7 @@ export default function Audioplayer({opened,onClose}) {
   const {handlePlayAudio}=useList()
   const {PlaybackPosition}=useList()
   const {PlaybackDuration}=useList()
+  const {handleLikelist}=useList()
   const Calculateseekbar=()=>{
     if(PlaybackPosition!==null && PlaybackDuration!==null){
       return PlaybackPosition/PlaybackDuration
@@ -29,7 +31,7 @@ export default function Audioplayer({opened,onClose}) {
   //  return 0
  // }
   //console.log(Calculateseekbar())
-  //Calculateseekbar()
+  Calculateseekbar()
   return (
     <Modal visible={opened} onRequestClose={onClose} animationType='slide'>
       <SafeAreaView style={styles.playbox}>
@@ -68,6 +70,11 @@ export default function Audioplayer({opened,onClose}) {
                   <Pressable style={styles.play} onPress={()=>handlePlayAudio(Currentaudio)}>{!isPlaying?<Feather name='play' color={Colors.LIGHT} size={35}/>:<Feather name='pause' color={Colors.LIGHT} size={35}/>}</Pressable>
                   <Pressable style={styles.forword}> 
                   <Feather name='skip-forward' color={Colors.LIGHT} size={35}/>
+                  </Pressable>
+                </View>
+                <View style={styles.itbox}>
+                  <Pressable style={styles.likbox} onPress={()=>handleLikelist(Currentaudio)}>
+                     <Entypo name='heart' size={35} color={Colors.FAVOR_COL}/>  
                   </Pressable>
                 </View>
            </View>
@@ -179,5 +186,21 @@ const styles = StyleSheet.create({
         width:45,
         alignItems:'center',
         justifyContent:'center'
+      },
+      itbox:{
+        //backgroundColor:'red',
+        height:50,
+        marginVertical:10,
+        marginHorizontal:20,
+        flexDirection:'row',
+        justifyContent:'flex-end',
+        alignItems:'center'
+      },
+      likbox:{
+        height:47,
+        width:47,
+       // backgroundColor:'yellow',
+        justifyContent:'center',
+        alignItems:'center',
       }
 })

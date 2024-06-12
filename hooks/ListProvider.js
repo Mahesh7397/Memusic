@@ -25,10 +25,36 @@ export default function ListProvider({ children }) {
   const [recentview, setrecentview] = useState(false)
   const [PlaybackPosition,setPlaybackPosition]=useState(null)
   const [PlaybackDuration,setPlaybackDuration]=useState(null)
+  const [Likedlistvisi,setLikedlistvisi]=useState(false)
+  const [Liked,setLiked]=useState(false)
+  const [Likedlist,setLikedlist]=useState([])
   if (!list.length) { setlist(datacontroler) }
   //console.log(list)
   const [reload, setreload] = useState(false)
+  
 
+  const findliked=async()=>{
+    const result=await AsyncStorage.getItem('Favourite');
+    if(result!==null){setLikedlist(JSON.parse(result))}
+   // console.log(result)
+  }
+  //console.log(Likedlist)
+  const handleLikelist=async(item)=>{
+    console.log('pass')
+    const newlist = Likedlist.filter(n => n.id === item.id)
+    //console.log(newlist.length)
+    if(newlist.length){
+    const liklit=Likedlist.filter(n => n.id !== item.id)
+    const data = [...liklit]
+   // console.log('one')
+    await AsyncStorage.setItem('Favourite', JSON.stringify(data))
+    setLikedlist(data)
+    }else{
+    const data = [item, ...Likedlist]
+    //console.log('two')
+    await AsyncStorage.setItem('Favourite', JSON.stringify(data))
+    setLikedlist(data)}
+  }
 
   //console.log(playbackobj)
   const findrecent = async () => {
@@ -101,10 +127,13 @@ export default function ListProvider({ children }) {
 
   useEffect(() => {
     findrecent()
+    findliked()
+    //AsyncStorage.removeItem('Favourite')
   }, [])
 
   return (
-    <ListContext.Provider value={{ Loader, list, setLoader, reload, setreload, playbackobj, soundobj, currentaudioid, Currentaudio, isPlaying, recentview, recentlist, seaudio, HandleSet, setCurrentaudio, setcurrentaudioid, setisPlaying, setsoundobj, setplaybackobj, handlePlayAudio, setrecentview, setrecentlist, PlaybackPosition,PlaybackDuration}}>
+    <ListContext.Provider value={{ Loader, list, setLoader, reload, setreload, playbackobj, soundobj, currentaudioid, Currentaudio, isPlaying, recentview, recentlist, seaudio,Likedlist, 
+    Likedlistvisi,setLikedlistvisi,HandleSet, setCurrentaudio, setcurrentaudioid, setisPlaying, setsoundobj, setplaybackobj, handlePlayAudio, setrecentview, setrecentlist, PlaybackPosition,PlaybackDuration,handleLikelist}}>
       {children}
     </ListContext.Provider>
   )

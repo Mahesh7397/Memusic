@@ -1,12 +1,11 @@
-import { FlatList, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Colors } from '../../constants/Colors'
 import Recentlist from '../../components/Frame layout/Recentlist'
 import Quickpick from '../../components/Frame layout/Quickpick'
-import { Audio } from 'expo-av';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useList } from '../../hooks/ListProvider'
-import { Pause , Play,Resume,Playnext } from '../../components/AudioControler'
+
 
 
 export default function Home() {
@@ -62,10 +61,11 @@ const onsubmit=(items)=>{
          <Text style={styles.text}>Quick Pick :</Text>
          <Pressable style={styles.refresh} onPress={()=>random()}><Text style={[styles.text,{paddingRight:5}]}>Refresh</Text></Pressable>
         {randomlist.map((items)=>(
-          <Pressable>
+          <Pressable onLongPress={()=>console.log('pass')}>
          <Quickpick item={items} handleaudio={()=>onsubmit(items)}/></Pressable>
          ))}
       </View>
+      
       <View style={{height:80}}/>
     </ScrollView>
   )
